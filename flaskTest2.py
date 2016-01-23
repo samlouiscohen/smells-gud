@@ -14,15 +14,19 @@ MAIL_USE_SSL=True,
 MAIL_USERNAME = 'leostilwell@gmail.com',
 MAIL_PASSWORD = 'XXXX'
 )
+
+#Create mail object
 mail = Mail(app)
 app.config.from_object(__name__)
+
+#Create variable to reference database file
 app.database = "WhatsCookin\'.db"
  
-
-
+#Creates a connection
 def connect_db():
 	return lite.connect(app.database)
 
+#Creates the database if it doesnt exist
 def init_db():
     with closing(connect_db()) as db:
         with app.open_resource('schema.sql', mode='r') as f:
@@ -30,7 +34,7 @@ def init_db():
         db.commit()
 
 
-
+#Allows flask to communcate with the database
 @app.before_request
 def before_request():
     g.db = connect_db()
@@ -42,22 +46,22 @@ def teardown_request(exception):
         db.close()
 
 
-
+#Route for the website(landing page of website)
 @app.route('/')
 def home():
-	#init_db()
+
 	g.db = connect_db()
+	#Get everything from entries
 	cur = g.db.execute('select * from entries')
+	#Create dictionary using list comprehension
 	entries = [dict(food=row[1], attributes = row[2]) for row in cur.fetchall()]
 	
+	#Returns the html to user
 	return render_template('index.html', entries = entries)
 
+#------Mail aspect of website-----
 
-    #cur = g.db.execute('select food, attributes from entries order by id desc')
-    #entries = [dict(food=row[0], attributes=row[1]) for row in cur.fetchall()]
-    #return render_template('show_entries.html', entries=entries)
 
-	#return (render_template('show_entries.html', entries=entries))
 @app.route('/mail')
 def send_Mail():
 	#toSend = ""
