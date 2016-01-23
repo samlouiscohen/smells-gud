@@ -18,9 +18,10 @@ def getTotalInfo(url):
 	numFoods = range(10) 
 	completeHalls = dict()
 	numColumbiaDiningHalls = range(1)
-	hallFoods = dict()
+	#hallFoods = dict()
 
-
+	hallFoods =[]
+	#print("WOOP")
 	#Go into 'tbody' and get each 'row'
 	for tr in soup.findAll("tbody"):
 		for td in tr.findAll("td"):
@@ -30,14 +31,10 @@ def getTotalInfo(url):
 			
 			#Return from the current function if over total foods on page
 			if(foodGenInfo is None):
-				return
+				break
 			foodName = foodGenInfo.get('title')
-			#print(foodName)
-
-
 
 			#-----Get attributes of each food----
-
 
 			#Go into '3rd' div containing attributes(bs4 Tag)
 			attGenInfo = td.find('div',class_ = "views-field-tid")
@@ -47,107 +44,35 @@ def getTotalInfo(url):
 		
 			#List comprehension to store all atttributes in list
 			attributes = [prop.text for prop in attGenSpec]
-			print(attributes)
+
+			#[ [food,[att1,att2,att3]],[food2,[att1,att2,att3]] ]
+
+			#Create list for each food and its attributes
+			fullFood = [foodName,attributes]
+
+			#Append each food to a specific halls list
+			hallFoods.append(fullFood)
+
+		print(hallFoods)
 
 
-
-
-			#for attribute in soup.findAll('div',class=)
-			#attributes = td.find('div',)
-
-
-
-			#Get food attributes
-			# attributes = td.find('div',class_ = "views-field-tid")
-			# if(attributes is not None):
-
-			# 	print(attributes)
-
-
-			# if(foodGen is not None):
-			# 	print(type(foodGen))
-
-			# 	food2= foodGen.get('title')
-			# 	print(food2)
-			# else:
-			# 	print('fuck u meaty')
-
-				#x = foodGen.find('title')
-				#print(x)
-
-				# food2 = foodGen.get('title')
-
-				# print(food2)
-
-
-			#print(foodGen is None)
-			# if not(type(foodGen) == 'NoneType'):
-			# 	food2 = foodGen.find('a')
-			# 	food3 = food2.find('img',class_ = "title")
-			# 	print(food3)
-			
-			# attributes = td.find('div',class_ = "views-field-tid")
-			# print(type(foodName))
-			# #print(foodName.toString)
-			# x = foodName.get('title')
-			# print(x)
-			
-			# if not(foodName == 'None'):
-			# 	r = foodName.find('title')
-			# if( not(type(foodName)=='NoneType')):
-
-			# 	fudName = foodName.get("title")
-
-			#zz = attributes.findAll("div")
-			#print(foodName)
-			# print(fudName)
-			#print(zz)
-			#print("\n -----")
-
-			# #Control flow, to see if none type or not- so no errors
-			# if(type(attributes)=="<class 'bs4.element.Tag'>"):
-			# 	print('good')
-			# 	print(attributes.find("div"))
-
-
-			# else:
-			# 	print('Nope')
-			# 	print(type(attributes))
-			# 	#print(attributes.find("div"))
-
-
-
-			# if(type(attributes)=="bs4.element.Tag"):
-			# 	for attrib in attributes.findAll("div"):
-			# 		print('attrib is: ')
-			# 		print(attrib)
-			# else:
-			# 	print('Nope')
-
-
-
-			# if(attributes.find(div))
-			# for x in attributes.findAll('a'):
-				
-			# 	#print(foodName)
-			# 	print(x)
-
-			
-			#print("foodName: " + foodName)
-			#print("attributes: " + attributes)
-
+	return hallFoods
 
 
 def main():
 	'''Main is calling getTotalInfo for each dininghall'''
 
-	diningHallFull = dict()
+	diningHallFull = []
 
 	for aHall in range(3):
 		url = 'http://dining.columbia.edu/?quicktabs_homepage_menus_quicktabs='+str(aHall)+'#quicktabs-homepage_menus_quicktabs'
+		
+		#Call function for all of a dininghalls food
+		aHallFoods = getTotalInfo(url)
 
+		#Encompassing list with all dining halls and all their foods
+		diningHallFull.append(aHallFoods)
 
-		diningHallFull['hall'+str(aHall)] = getTotalInfo(url)
 	print(diningHallFull)
 
 main()
