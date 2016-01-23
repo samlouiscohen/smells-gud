@@ -31,9 +31,30 @@ def getTotalInfo(url):
 			#Return from the current function if over total foods on page
 			if(foodGenInfo is None):
 				return
-			#print(foodGenInfo)
 			foodName = foodGenInfo.get('title')
-			print(foodName)
+			#print(foodName)
+
+
+
+			#-----Get attributes of each food----
+
+
+			#Go into '3rd' div containing attributes(bs4 Tag)
+			attGenInfo = td.find('div',class_ = "views-field-tid")
+
+			#Get all divs(attributes) for particular food
+			attGenSpec = attGenInfo.find_all('div')
+		
+			#List comprehension to store all atttributes in list
+			attributes = [prop.text for prop in attGenSpec]
+			print(attributes)
+
+
+
+
+			#for attribute in soup.findAll('div',class=)
+			#attributes = td.find('div',)
+
 
 
 			#Get food attributes
