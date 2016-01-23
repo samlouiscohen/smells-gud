@@ -51,7 +51,7 @@ a:hover, a:active { outline: none; }
 /* GENERAL STYLES
 ----------------------------------------------- */
 
-html {overflow-x: hidden; color: #ECF0F1; background-color: #2C3E50;}
+html {overflow-x: hidden;}
 
 /* ----- SELECTION COLORS ----- */
 
