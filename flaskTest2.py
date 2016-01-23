@@ -1,8 +1,9 @@
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
 import sqlite3 as lite
-from sortedFood_crawler import get_foodNames
+from webCrawler import getAllFoods
 from contextlib import closing
 from flask_mail import Mail, Message
+import sys
 
 
 app = Flask(__name__)
@@ -17,8 +18,12 @@ MAIL_PASSWORD = 'XXXX'
 mail = Mail(app)
 app.config.from_object(__name__)
 app.database = "WhatsCookin\'.db"
- 
 
+
+food = []
+food = getAllFoods()
+FullLength = len(food)
+length1 = len(food)
 
 def connect_db():
 	return lite.connect(app.database)
@@ -45,19 +50,31 @@ def teardown_request(exception):
 
 @app.route('/')
 def home():
-	#init_db()
-	g.db = connect_db()
+
 	cur = g.db.execute('select * from entries')
 	entries = [dict(food=row[1], attributes = row[2]) for row in cur.fetchall()]
 	
 	return render_template('index.html', entries = entries)
 
+def refresh():
+	food = []
+	food = getAllFoods()
+	FullLength = len(food)
+	length1 = len(food)
+	print("hi", file=sys.stderr)
+	g.db = connect_db()
+	
+	g.db.execute("INSERT INTO entries(food,attributes) VALUES('chicken')")
+	for x in range(0,FullLength):
+		
+		for y in range(0,len(food[x])):
+			string1 = food[x][y][0]
+			string2 = food[x][y][1][0]
+			g.db.execute("INSERT INTO entries(food,attributes) VALUES(string1,string2)")
+			g.db.commit()
 
-    #cur = g.db.execute('select food, attributes from entries order by id desc')
-    #entries = [dict(food=row[0], attributes=row[1]) for row in cur.fetchall()]
-    #return render_template('show_entries.html', entries=entries)
-
-	#return (render_template('show_entries.html', entries=entries))
+	g.db.commit()
+    
 @app.route('/mail')
 def send_Mail():
 	#toSend = ""
@@ -81,10 +98,11 @@ def send_Mail():
 	return render_template('mail.html')
 
 
-@app.route('/newuser', methods = ['GET','POST'])
+@app.route('/addUser', methods = ['GET','POST'])
 def add_User():
 	error = None
 	g.db = connect_db()
+	
 	if request.method == "POST":
 		username = request.form['username']
 		password = request.form['password']
@@ -93,16 +111,21 @@ def add_User():
 		if(g.db.execute("SELECT EXISTS(SELECT 1 from users WHERE username=username)")):
 			print("hi")
 			error = 'Invalid username'
-			return render_template('index.html')
+			
 		else:
 			g.db.execute("INSERT INTO users(username,password,email,KeyWords) VALUES(username, password, email, preferences")
 			#flash("You are now registered!")
 			print("hi")
-			return render_template('index.html')
+			return redirect('http://127.0.0.1:5000/thankyou')
 	
 	
 	g.db.commit()
 	g.db.close()
-	return render_template('user.html')
+	return render_template('newuser')
+
+@app.route('/thankyou')
+def thankyou():
+	return render_template('thankyou.html')
+
 
 app.run()

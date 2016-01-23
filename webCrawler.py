@@ -1,10 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-#/Users/samcohen/GitHub/WhatsCookin
-#/Users/samcohen/Desktop/Programming/WebApps/smellsGud
-
-def getTotalInfo(url):
+def getHallInfo(url):
 
 	#Get website page through requests
 	source_code = requests.get(url)
@@ -13,30 +10,26 @@ def getTotalInfo(url):
 	#Create a BS object to operate on
 	soup = BeautifulSoup(plain_text,'lxml')
 
-
-	#---------------
-	numFoods = range(10) 
-	completeHalls = dict()
-	numColumbiaDiningHalls = range(1)
-	#hallFoods = dict()
-
+	#List to hold all foods of one dining hall
 	hallFoods =[]
-	#print("WOOP")
-	#Go into 'tbody' and get each 'row'
+
+	#Go into 'tbody' and get each 'row'(this is just digging into the html)
 	for tr in soup.findAll("tbody"):
 		for td in tr.findAll("td"):
 
-			#Get food names
-			foodGenInfo = td.find('a',class_ = "imagefield-field_meal_images")#"views-field-field-meal-images-fid"
+			#Hop into HTML containing food names
+			foodGenInfo = td.find('a',class_ = "imagefield-field_meal_images")
 			
-			#Return from the current function if over total foods on page
+			#Break out current iteration if over total foods in the row
 			if(foodGenInfo is None):
 				break
+
+			#Get actaul name of food as a string
 			foodName = foodGenInfo.get('title')
 
 			#-----Get attributes of each food----
 
-			#Go into '3rd' div containing attributes(bs4 Tag)
+			#Go into '3rd' div down-containing attributes(bs4 Tag)
 			attGenInfo = td.find('div',class_ = "views-field-tid")
 
 			#Get all divs(attributes) for particular food
@@ -53,26 +46,22 @@ def getTotalInfo(url):
 			#Append each food to a specific halls list
 			hallFoods.append(fullFood)
 
-		print(hallFoods)
-
-
 	return hallFoods
 
 
-def main():
+def getAllFoods():
 	'''Main is calling getTotalInfo for each dininghall'''
 
-	diningHallFull = []
+	allHallsComplete = []
 
 	for aHall in range(3):
 		url = 'http://dining.columbia.edu/?quicktabs_homepage_menus_quicktabs='+str(aHall)+'#quicktabs-homepage_menus_quicktabs'
 		
 		#Call function for all of a dininghalls food
-		aHallFoods = getTotalInfo(url)
+		aHallFoods = getHallInfo(url)
 
 		#Encompassing list with all dining halls and all their foods
-		diningHallFull.append(aHallFoods)
+		allHallsComplete.append(aHallFoods)
+	print(len(allHallsComplete[0][0]))
+	return allHallsComplete
 
-	print(diningHallFull)
-
-main()
