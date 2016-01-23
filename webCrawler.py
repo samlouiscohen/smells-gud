@@ -62,6 +62,12 @@ def getAllFoods():
 
 		#Encompassing list with all dining halls and all their foods
 		allHallsComplete.append(aHallFoods)
+<<<<<<< HEAD
 	print(len(allHallsComplete[0][0]))
 	return allHallsComplete
+=======
+
+	return allHallsComplete
+
+>>>>>>> origin/master
 
