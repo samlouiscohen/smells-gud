@@ -51,6 +51,35 @@ a:hover, a:active { outline: none; }
 /* GENERAL STYLES
 ----------------------------------------------- */
 
+html {
+	background: url("../img/photobackground.jpg") no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	background-size: cover;
+
+}
+
+#background {
+width: 100vw;
+height: 100vh;
+background-color: rgba(0,51,160,.6);
+/* float: left; */
+}
+
+#idbox {
+width:30vw;
+height:30vh;
+background-color: blue;
+margin: 0 auto;
+/* padding-top: 20vw */
+}
+
+#idpadding {
+width:30vw;
+height:20vw;
+
+}
+
 html {overflow-x: hidden;}
 
 /* ----- SELECTION COLORS ----- */
