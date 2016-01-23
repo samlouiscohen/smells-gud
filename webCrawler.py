@@ -59,7 +59,7 @@ def getTotalInfo(url):
 	return hallFoods
 
 
-def main():
+def getAllFoods():
 	'''Main is calling getTotalInfo for each dininghall'''
 
 	diningHallFull = []
@@ -73,6 +73,4 @@ def main():
 		#Encompassing list with all dining halls and all their foods
 		diningHallFull.append(aHallFoods)
 
-	print(diningHallFull)
-
-main()
+	return diningHallFull
