@@ -1,6 +1,1 @@
-
-$(.pepe).on('click',function(){
-	$(this).css({
-		"color":"red"
-	});
-})
+var checkedValue = $('.messageCheckbox:checked').val();
