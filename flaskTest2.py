@@ -17,6 +17,7 @@ MAIL_PASSWORD = 'XXXX'
 )
 mail = Mail(app)
 app.config.from_object(__name__)
+app.config["DEBUG"] = True
 app.database = "WhatsCookin\'.db"
 
 
@@ -50,30 +51,30 @@ def teardown_request(exception):
 
 @app.route('/')
 def home():
+	#food = []
+	food = getAllFoods()
+	FullLength = len(food)
+	length1 = len(food)
+	g.db = connect_db()
+	
+	#g.db.execute("INSERT INTO entries(food,attributes) VALUES('chicken')")
+	for x in range(FullLength):
+		
+		for y in range(len(food[x])):
+			if len(food[x][y][1]) == "none" :
+				g.db.execute("INSERT INTO entries(food,attributes) VALUES(?,?)",[food[x][y][0],food[x][y][1]])
+				g.db.commit()
+			else:
+				g.db.execute("INSERT INTO entries(food,attributes) VALUES(?,?)",[food[x][y][0],food[x][y][1]])
+				g.db.commit()
+
 
 	cur = g.db.execute('select * from entries')
 	entries = [dict(food=row[1], attributes = row[2]) for row in cur.fetchall()]
 	
 	return render_template('index.html', entries = entries)
 
-def refresh():
-	food = []
-	food = getAllFoods()
-	FullLength = len(food)
-	length1 = len(food)
-	print("hi", file=sys.stderr)
-	g.db = connect_db()
 	
-	g.db.execute("INSERT INTO entries(food,attributes) VALUES('chicken')")
-	for x in range(0,FullLength):
-		
-		for y in range(0,len(food[x])):
-			string1 = food[x][y][0]
-			string2 = food[x][y][1][0]
-			g.db.execute("INSERT INTO entries(food,attributes) VALUES(string1,string2)")
-			g.db.commit()
-
-	g.db.commit()
     
 @app.route('/mail')
 def send_Mail():
@@ -98,30 +99,33 @@ def send_Mail():
 	return render_template('mail.html')
 
 
-@app.route('/addUser', methods = ['GET','POST'])
+@app.route('/adduser', methods = ['GET','POST'])
 def add_User():
 	error = None
 	g.db = connect_db()
-	
+	cur = g.db.cursor()
 	if request.method == "POST":
-		username = request.form['username']
-		password = request.form['password']
-		email = request.form['email']
-		preferences = request.form['preferences']
-		if(g.db.execute("SELECT EXISTS(SELECT 1 from users WHERE username=username)")):
+		#set variables from web form
+		username = request.form["username"]
+		password = request.form["password"]
+		email = request.form["email"]
+		preferences = request.form["preferences"]
+		
+		#if the username entered is already in db, redirect to homepage
+		if(g.db.execute("SELECT EXISTS(SELECT 1 from users WHERE username==username)")==1):
 			print("hi")
 			error = 'Invalid username'
+			return redirect('http://127.0.0.1:5000/')
 			
-		else:
-			g.db.execute("INSERT INTO users(username,password,email,KeyWords) VALUES(username, password, email, preferences")
-			#flash("You are now registered!")
-			print("hi")
-			return redirect('http://127.0.0.1:5000/thankyou')
+		g.db.execute("INSERT INTO users(username,password,email) VALUES(?,?,?)",[request.form['username'], request.form['password'], request.form['email']])
+		#flash("You are now registered!")
+		print("hi")
+		return redirect('http://127.0.0.1:5000/thankyou')
 	
 	
 	g.db.commit()
 	g.db.close()
-	return render_template('newuser')
+	return render_template('adduser.html')
 
 @app.route('/thankyou')
 def thankyou():

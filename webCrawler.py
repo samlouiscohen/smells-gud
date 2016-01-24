@@ -37,6 +37,16 @@ def getHallInfo(url):
 		
 			#List comprehension to store all atttributes in list
 			attributes = [prop.text for prop in attGenSpec]
+			stringOfAttributes=''
+			if len(attributes)==0:
+				attributes = "None"
+			else:
+				for attribute in range(len(attributes)):
+					stringOfAttributes+=str(attributes[attribute]) +' '
+
+				attributes = stringOfAttributes[:-1]
+
+					
 
 			#[ [food,[att1,att2,att3]],[food2,[att1,att2,att3]] ]
 
@@ -62,12 +72,12 @@ def getAllFoods():
 
 		#Encompassing list with all dining halls and all their foods
 		allHallsComplete.append(aHallFoods)
-<<<<<<< HEAD
-	print(len(allHallsComplete[0][0]))
-	return allHallsComplete
-=======
 
+
+		print(allHallsComplete)
 	return allHallsComplete
 
->>>>>>> origin/master
+
+
+
 
