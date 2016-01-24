@@ -36,6 +36,63 @@
 
 
 
+		<!--User Input-->
+		<form action="{{ url_for('add_user') }}" method="post">
+
+
+
+		<!--data term, and accompanying description-->
+		<h1 id="sign_up">SIGN UP NOW!!!!!</h1>
+		
+		<div class="user_field">Username:<input type=username name=username></div>
+		<div class="user_in_field"></div>
+		
+		<div class="user_field">Password:</div>
+		<div class="user_in_field"><input type=username name=username></div>
+		
+		<div class="user_field">Email:</div>
+		<div class="user_in_field"><input type=username name=username></div>
+
+
+
+			<!-- <dl>
+				
+				<dt class="user_fields">Username:</dt>
+					<dd><input type=username name=username>
+
+				<dt class="user_fields">Password:</dt>
+					<dd><input type=password name=password>
+
+				<dt class="user_fields"> email:</dt>
+					<dd><input type=email name=email>
+
+				<dt class="user_fields">Preferences:</dt>
+					<dd><input type=preferences name=preferences>
+
+				<dd><input type=submit value=Register>
+			</dl> -->
+
+
+
+
+
+
+
+<!-- 			<dl>
+				<dt class="user_fields">Username:</dt>
+					<dd><input type=username name=username>
+				<dt class="user_fields">Password:</dt>
+					<dd><input type=password name=password>
+				<dt class="user_fields"> email:</dt>
+					<dd><input type=email name=email>
+				<dt class="user_fields">Preferences:</dt>
+					<dd><input type=preferences name=preferences>
+				<dd><input type=submit value=Register>
+			</dl> -->
+		</form>
+
+
+
 		<!--Button to register-->
 		<form action="/goToRegister" method="get">
 			<div class="text-wrapper" id="joinDiv">
