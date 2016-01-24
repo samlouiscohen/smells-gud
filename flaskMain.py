@@ -72,8 +72,19 @@ def add_user():
 
 	print("The email addreess is:"+email)
 
+	cur = g.database.cursor()
+
+	cur = g.db.execute('select * from entries')
+	#Create dictionary using list comprehension
+	entries = [dict(food=row[1], attributes = row[2]) for row in cur.fetchall()]
+
+
+
+
+
 	#Render the next webpage(step of progress)
-	return render_template('preferences_page.html')
+	return render_template('preferences_page.html',entries = entries)
+
 
 
 @app.route('/add_grouping',methods = ['GET','POST'])
