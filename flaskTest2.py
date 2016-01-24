@@ -124,6 +124,50 @@ def send_Mail():
 	return render_template('mail.html')
 
 
+
+
+
+
+#Connecting two pages
+@app.route('/goToRegister')
+def goNextPage():
+	return redirect("")
+
+
+
+
+
+#Route to add user preferences
+@app.route('/add_grouping', methods = ['GET','POST'])
+def add_group():
+	pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Route to add users 
+
 @app.route('/adduser', methods = ['GET','POST'])
 def add_User():
 	error = None
@@ -138,13 +182,13 @@ def add_User():
 		
 		#if the username entered is already in db, redirect to homepage
 		if(g.db.execute("SELECT EXISTS(SELECT 1 from users WHERE username==username)")==1):
-			print("hi")
+			#print("hi")
 			error = 'Invalid username'
 			return redirect('http://127.0.0.1:5000/')
 			
 		g.db.execute("INSERT INTO users(username,password,email) VALUES(?,?,?)",[request.form['username'], request.form['password'], request.form['email']])
 		#flash("You are now registered!")
-		print("hi")
+		#print("hi")
 		return redirect('http://127.0.0.1:5000/thankyou')
 	
 	
