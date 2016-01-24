@@ -32,9 +32,31 @@
 	text-align:center; 
 	margin:0 auto;
 
+}
+
+
+form { width: 50%;
+    margin: 0 auto; }
+form textarea, 
+form input { width: 100%; }
+
+.user_field{
+	position:fixed;
+	background-color: blue;
 
 
 }
+
+.user_in_field{
+	position:fixed;
+	background-color: blue;
+	left:5vw;
+
+}
+
+
+
+
 
 #randList{
 	color:white;
