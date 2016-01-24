@@ -1,0 +1,75 @@
+
+.pp {
+	color:blue;
+}
+
+#header-wrapper{
+	position:fixed;
+	background:#113eb3;
+	color:white;
+	margin:0 auto;
+	top:50%;
+	left:50%;
+
+	text-align: center;
+	width:20vw;
+	height:5vh;
+}
+
+#header{
+
+	font-size:2.5vw;
+}
+
+#joinButton{
+	position:fixed;
+	color:white;
+
+	background-color: #113eb3;
+	font-style: oblique;
+	font-weight: bold;
+	font-size: 2.5vw;
+	text-align:center; 
+	margin:0 auto;
+
+
+
+}
+
+#randList{
+	color:white;
+}
+
+.crown{
+	position:fixed;
+	top:0px;
+	right:0px;
+	height:100px;
+	width:100px;
+}
+
+#joinDiv{
+	margin:0 auto;
+}
+
+.text-wrapper{
+
+	color:white;
+	background:#113eb3;
+	width:100px;
+}
+
+
+body{
+	width:100vw;
+	height:100vh;
+
+
+	background: url("../img/CU_background2.jpg") no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+}
