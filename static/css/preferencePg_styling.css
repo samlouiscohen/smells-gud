@@ -24,8 +24,6 @@ body,html{
 
 
 
-
-
 #favs{
 	/*background: blue;*/
 	/*position:fixed;*/
@@ -78,4 +76,16 @@ body,html{
 
 .option_list{
 	position: relative;
+	color:white;
+	text-align: right;
 }
+
+
+
+
+
+
+
+
+
+
