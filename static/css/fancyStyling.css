@@ -19,10 +19,18 @@
 	color:blue;
 }
 
-#form {
-	width:50vw;
-height:50vh;
-color:blue;
+#sign_up {
+	width: 100%;
+	color: white;
+height: 50px;
+   margin: 0 auto; 
+font-family: 'Montserrat', sans-serif;
+}
+
+#mainIDbox {
+width:30vw;
+height:20vh;
+background-color: rgb(108, 122, 137);
 margin:0 auto;
 }
 
@@ -61,6 +69,14 @@ margin: -20px -50px
 
 }
 
+#button-format{
+	position: relative;
+	left:0;
+	height:20vh;
+	width:100%;
+/*	background-color: white;*/
+}
+
 #randList{
 	color:white;
 }
@@ -72,6 +88,11 @@ margin: -20px -50px
 	height:100px;
 	width:100px;
 }
+.ourlogo {
+	height:150px;
+	width:150px;
+	margin: 0 auto;
+}
 
 #joinDiv{
 	margin:0 auto;
@@ -81,8 +102,14 @@ margin: -20px -50px
 		color:white;
 /*	background:#113eb3;*/
 	width:30vw;
+	height:30vh;
 	margin: 0 auto;
 	font-family: 'RightChalk';
+}
+
+#logo {
+	width:100vw;
+	height:30vh;
 }
 
 .text-wrapper{
@@ -102,17 +129,56 @@ form { width: 50%;
 form textarea, 
 form input { width: 100%; }
 
+.span.left {
+	float:left;
+	width:25%;
+	height:15px;
+	background-color: green;
+	display:inline-block;
+}
+.span.right {
+	float:right;
+	width:75%;
+	height:15px;
+	background-color: red;
+	display:inline-block;
+}
+
+#password_group{
+	position:relative;
+/*	background-color: red;*/
+	width:30vw;
+	height:20px;
+	margin: 0 auto;
+
+}
+#username_group{
+		position:relative;
+/*	background-color: red;*/
+	width:30vw;
+	height:20px;
+}
+
+#email_group{
+			position:relative;
+/*	background-color: red;*/
+	width:30vw;
+	height:20px;
+}
+
 .user_field{
-	position:fixed;
-	background-color: blue;
+	position: absolute;
+	font-family: 'Lato';
+	left:0;
+	
 
 
 }
 
 .user_in_field{
-	position:fixed;
-	background-color: blue;
-	left:5vw;
+	position:absolute;
+	left:80px;
+
 
 }
 
