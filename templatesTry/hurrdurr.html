@@ -1,0 +1,30 @@
+<!doctype html>
+<title>SmellsGud</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<div class=page>
+  <h1><a href="http://127.0.0.1:5000"</a> SmellsGud</a></h1>
+  <div class=metanav>
+  </div>
+  {% for message in get_flashed_messages() %}
+    <div class=flash>{{ message }}</div>
+  {% endfor %}
+  <ul class=entries>
+
+
+{% for entry in entries %}
+    <strong>Food:</strong> {{ entry.food }} <br>
+    <strong>attributes:</strong> {{ entry.attributes }} <br>
+    <strong> Hall:</strong> {{  entry.hall }}<br>
+    <nl>
+    
+{% endfor %}  
+
+      <p> <a href="http://127.0.0.1:5000/mail"</a> click here to send mail.</a></p>
+      <nl>
+      <p> <a href = "http://127.0.0.1:5000/adduser"</a> click here to register</a></p>
+
+
+
+
+  </ul>
+</div>
