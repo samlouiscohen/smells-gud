@@ -4,6 +4,7 @@ blinker==1.4
 Flask==0.10.1
 Flask-Mail==0.9.1
 git==3.2.6
+gunicorn==19.4.5
 html5lib==0.9999999
 itsdangerous==0.24
 Jinja2==2.8
