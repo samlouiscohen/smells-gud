@@ -1,0 +1,53 @@
+@font-face {
+  font-family: 'Right Chalk';
+  font-style: normal;
+  font-weight: 400;
+  src:  url(../../RightChalk.ttf);
+  /*unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;*/
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato Regular'), local('Lato-Regular'), url(http://fonts.gstatic.com/s/lato/v11/UyBMtLsHKBKXelqf4x7VRQ.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+
+#mainbody {
+
+	color:white;
+	width:50%;
+margin:0 auto;
+}
+
+#mainheading {
+	color:White;
+font-family: Avenir;
+margin:0 auto;
+text-align: center;
+}
+
+body{
+	width:100vw;
+	height:100vh;
+
+
+	background: url("../img/CU_background2.jpg") no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+input{
+	-webkit-appearance: none;
+	border:0;
+	outline:none;
+	padding:10px;
+	background:rgba(255,255,255,0.8);
+	font-size:16px !important;
+	font-family:Avenir !important;
+	margin-top: 30px;
+	display: block;
+}
