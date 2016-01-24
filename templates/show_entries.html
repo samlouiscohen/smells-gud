@@ -2,7 +2,7 @@
 {% block body %}
   <ul class="entries">
   {% for entry in entries %}
-    <li><h2>{{ entry.food }}</h2>{{ entry.attributes|safe }}
+    <li><h2>{{ entry.food }}</h2>{{ entry.attributes|safe }}{{ entry.hall }}
   {% endfor %}
   </ul>
 {% endblock %}
