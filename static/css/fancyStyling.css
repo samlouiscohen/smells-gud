@@ -77,6 +77,14 @@ margin: -20px -50px
 	margin:0 auto;
 }
 
+#title {
+		color:white;
+/*	background:#113eb3;*/
+	width:30vw;
+	margin: 0 auto;
+	font-family: 'RightChalk';
+}
+
 .text-wrapper{
 
 	color:white;
