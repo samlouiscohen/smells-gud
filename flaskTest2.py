@@ -3,7 +3,7 @@ import sqlite3 as lite
 from webCrawler import getAllFoods
 from contextlib import closing
 from flask_mail import Mail, Message
-import sys
+import os
 
 
 app = Flask(__name__)
@@ -15,11 +15,12 @@ MAIL_USE_SSL=True,
 MAIL_USERNAME = 'leostilwell@gmail.com',
 MAIL_PASSWORD = 'XXXX'
 )
+port = int(os.environ.get("PORT",5000))
 
 #Create mail object
 mail = Mail(app)
 app.config.from_object(__name__)
-<<<<<<< HEAD
+
 app.config["DEBUG"] = True
 app.database = "WhatsCookin\'.db"
 
@@ -29,13 +30,13 @@ food = getAllFoods()
 FullLength = len(food)
 length1 = len(food)
 
-=======
+
 
 #Create variable to reference database file
 app.database = "WhatsCookin\'.db"
  
 #Creates a connection
->>>>>>> origin/master
+
 def connect_db():
 	return lite.connect(app.database)
 
@@ -62,7 +63,6 @@ def teardown_request(exception):
 #Route for the website(landing page of website)
 @app.route('/')
 def home():
-<<<<<<< HEAD
 	#food = []
 	food = getAllFoods()
 	FullLength = len(food)
@@ -81,11 +81,11 @@ def home():
 				g.db.commit()
 
 
-=======
+
 
 	g.db = connect_db()
 	#Get everything from entries
->>>>>>> origin/master
+
 	cur = g.db.execute('select * from entries')
 	#Create dictionary using list comprehension
 	entries = [dict(food=row[1], attributes = row[2]) for row in cur.fetchall()]
@@ -93,14 +93,14 @@ def home():
 	#Returns the html to user
 	return render_template('index.html', entries = entries)
 
-<<<<<<< HEAD
+
 	
     
-=======
+
 #------Mail aspect of website-----
 
 
->>>>>>> origin/master
+
 @app.route('/mail')
 def send_Mail():
 	#toSend = ""
