@@ -68,11 +68,11 @@ body,html{
 
 
 #crown{
-	position:fixed;
-	top:0px;
-	right:0px;
-	height:50px;
-	width:50px;
+position:fixed;
+top:0px;
+right:0px;
+height:100px;
+width:100px;
 }
 
 
