@@ -1,6 +1,25 @@
+body,html{
+	font-family: Avenir;
+	line-height: 1.5;
+	font-size: 16px;
+	font-weight: 300 !important;
+		background: url("../img/CU_background2.jpg") no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
 #pref_title{
 	color:red;
 	position: fixed;
+	font-weight: 300;
+	text-align: center;
+	width: 100%;
+	top:0;
+	left: 0;
+	right: 0;
+/*	background: #fff;*/
+	color: white;
 }
 
 
@@ -8,7 +27,7 @@
 
 
 #favs{
-	background: blue;
+	/*background: blue;*/
 	/*position:fixed;*/
 	position:absolute;
 	width:20vw;
@@ -17,9 +36,11 @@
 	text-align: center;
 }
 
-#fav_title{
+#fav_title h2{
 	position:fixed;
-	background-color: green;
+	font-weight: 300 !important;
+	text-transform: capitalize;
+
 }
 
 
@@ -28,7 +49,6 @@
 
 #groups{
 	position:absolute;
-	background-color: red;
 	width:20vw;
 	height:100vw;
 	right:5vw;
@@ -36,9 +56,10 @@
 	text-align: center;
 }
 
-#group_title{
+#group_title h2{
 	position:fixed;
-	background-color: green;
+		font-weight: 300 !important;
+	text-transform: capitalize;
 }
 
 
