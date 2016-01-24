@@ -93,16 +93,15 @@ margin: 0 auto;
 }
 
 .title {
-	display: table-cell;
+		display: table-cell;
 	vertical-align: bottom;
 width: 50%;
 color: white;
-height: 50%;
-padding-top: 10vh;
+height:100%;
+/* padding-top: 10vh; */
 line-height: 20px;
-float: left;
 font-family: 'RightChalk';
-font-size: 70px;
+font-size: 30px;
 }
 
 .center {
@@ -118,7 +117,7 @@ font-size: 70px;
 }
 
 .box {
-	
+
 }
 
 html {overflow-x: hidden;}
