@@ -30,7 +30,7 @@ font-family: 'Montserrat', sans-serif;
 #mainIDbox {
 width:30vw;
 height:20vh;
-background-color: rgb(108, 122, 137);
+/*background-color: rgb(108, 122, 137);*/
 margin:0 auto;
 }
 
@@ -89,8 +89,9 @@ margin: -20px -50px
 	width:100px;
 }
 .ourlogo {
-	height:150px;
-	width:150px;
+	height:25vh;
+	width:25vh;
+	display: block;
 	margin: 0 auto;
 }
 
@@ -100,12 +101,32 @@ margin: -20px -50px
 
 #title {
 		color:white;
+		font-size: 30px;
+		text-align: center;
 /*	background:#113eb3;*/
 	width:30vw;
 	height:30vh;
 	margin: 0 auto;
+	position: relative;
+	top: 100px;
 	font-family: 'RightChalk';
+
+	position: relative;
 }
+.hero{
+	font-size: 60px;
+}
+.hero .small{
+	font-size: 40px !important; 
+}
+
+#onBottom{
+/*position:absolute;
+bottom:0;
+left:25%;*/
+
+}
+
 
 #logo {
 	width:100vw;
@@ -196,4 +217,14 @@ body{
 	background-size: cover;
 }
 
+input{
+	-webkit-appearance: none;
+	border:0;
+	outline:none;
+	padding:10px;
+	background:rgba(255,255,255,0.8);
+	font-size:16px !important;
+	font-family:Avenir !important;
+	margin-top: 30px;
+	display: block;
 }
