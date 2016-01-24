@@ -1,0 +1,60 @@
+#pref_title{
+	color:red;
+	position: fixed;
+}
+
+
+
+
+
+#favs{
+	background: blue;
+	/*position:fixed;*/
+	position:absolute;
+	width:20vw;
+	left:10vw;
+	top:10vh;
+	text-align: center;
+}
+
+#fav_title{
+	position:fixed;
+	background-color: green;
+}
+
+
+
+
+
+#groups{
+	position:absolute;
+	background-color: red;
+	width:20vw;
+	height:100vw;
+	right:5vw;
+	top:10vh;
+	text-align: center;
+}
+
+#group_title{
+	position:fixed;
+	background-color: green;
+}
+
+
+
+
+
+
+#crown{
+	position:fixed;
+	top:0px;
+	right:0px;
+	height:50px;
+	width:50px;
+}
+
+
+.option_list{
+	position: relative;
+}
