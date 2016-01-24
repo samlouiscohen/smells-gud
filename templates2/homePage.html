@@ -30,6 +30,25 @@
 		<img src = "../static/img/ColumbiaDining.jpg" class = "crown">
 
 
+		<!--User Input-->
+
+
+		<form action="{{ url_for('add_user') }}" method="post">
+
+		<!--data term, and accompanying description-->
+		<h1 id="sign_up">SIGN UP NOW!!!!!</h1>
+		
+		<div class="user_field">Username:></div>
+		<div class="user_in_field"><input type=username name=username</div>
+		
+		<div class="user_field">Password:</div>
+		<div class="user_in_field"><input type=password name=password></div>
+		
+		<div class="user_field">Email:</div>
+		<div class="user_in_field"><input type=email name=email></div>
+
+
+
 		<form action="/goToRegister" method="get" id="form">
 			
 				<button href ="http://127.0.0.1:5000/newuser" id="joinButton">Join!</button>
