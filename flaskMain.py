@@ -56,6 +56,22 @@ def home():
 	#Returns the html to user
 	return render_template('homePage.html')
 
+	#Get foods from webcrawler and store in database
+	foods = getAllFoods()
+	foodsLen = len(foods)
+
+	#We open a database connection #######**@#$*%*@#this was g.db
+	g.database = connect_db()
+	
+	for x in range(FullLength):
+		
+		for y in range(len(food[x])):
+			if len(food[x][y][1]) == "none" :
+				g.db.execute("INSERT INTO entries(food,attributes) VALUES(?,?)",[food[x][y][0],food[x][y][1]])
+				g.db.commit()
+			else:
+				g.db.execute("INSERT INTO entries(food,attributes) VALUES(?,?)",[food[x][y][0],food[x][y][1]])
+				g.db.commit()
 
 
 
@@ -102,19 +118,4 @@ def add_grouping():
 
 
 app.run()
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
 
