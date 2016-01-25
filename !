@@ -1,0 +1,16 @@
+BareNecessities==0.2.8
+beautifulsoup4==4.4.1
+blinker==1.4
+Flask==0.10.1
+Flask-Mail==0.9.1
+git==3.2.6
+html5lib==0.9999999
+itsdangerous==0.24
+Jinja2==2.8
+lxml==3.5.0
+Mail==2.1.0
+MarkupSafe==0.23
+requests==2.9.1
+six==1.10.0
+sql==0.4.0
+Werkzeug==0.11.3
