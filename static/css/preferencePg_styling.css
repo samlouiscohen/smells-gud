@@ -25,9 +25,9 @@ body,html{
 
 /*This is the div for the favs block*/
 #favs{
-	background: blue;
+	/*background: blue;*/
 	/*position:fixed;*/
-	position:absolute;
+	position:fixed;
 	width:30vw;
 	left:10vw;
 	top:10vh;
@@ -41,17 +41,17 @@ body,html{
 	background-color: red;
 	font-weight: 300 !important;
 	text-transform: capitalize;
+	background-color: #113eb3;
 
 }
 
 
 #list_food{
-	left:0%;
+	position: inherit;
+	left:10px
+	top:10px;
 	color:white;
 }
-
-
-
 
 
 
@@ -116,6 +116,7 @@ width:100px;
 	position: relative;
 	color:white;
 	text-align: right;
+
 }
 
 
