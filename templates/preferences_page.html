@@ -16,10 +16,12 @@
 
 	<body>
 
+		<div id="scroller" style="overflow-y: scroll; height:400px;">
+			<h2>hey</h2>
+
 		<div id="pref_title">
 			<h1>PREFERENCES</h1>
 		</div>
-
 
 
 		<!--Favorites sub-section-->
@@ -30,18 +32,23 @@
 			</div>
 
 			<!--Wrap everything here in a list of class option_list-->
-			<li class="option_list">
+<!--			<li class="favorites_list">-->
 
 				<!--Using a form to collect all clicked checkboxes-->
 				<form action="get_checkboxes" method="get">
+					
+					<!--HTML loop through food entries-->
 					{% for entry in entries %}
-
-					<strong>Food:</strong> {{ entry.food }} <input type="checkbox" value ="AFOOOOOOOOODD12341234124123412"/><br>
-					<strong>attributes:</strong> {{ entry.attributes }}<br>
-					<nl>
-
-				{% endfor %}  
-			</li>
+						<div id="list_food">
+							<strong >Food:</strong> {{ entry.food }} <input type="checkbox" value ="nonsense"/><br>
+						</div>
+						
+						<div id="list_attribs">
+							<strong>attributes:</strong> {{ entry.attributes }}<br>
+							<nl>
+						</div>
+					{% endfor %}  
+			<!--</li>  -->
 
 		</div>
 
@@ -84,7 +91,12 @@
 
 		</div>
 
-
+		<div id="submit_div">
+			<button id="submit_button" type="button" onclick="alert('hello world!')">click me</button>
+		</div>
+<!-- 		<div id="save_preferences">
+			<input type="button" name="save_prefs" value="Save yo preferences"/>
+		</div> -->
 
 
 			<!--
