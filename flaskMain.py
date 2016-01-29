@@ -3,7 +3,7 @@ import sqlite3 as lite
 from webCrawler import getAllFoods
 from contextlib import closing
 from flask_mail import Mail, Message
-import os
+
 
 
 app = Flask(__name__)
@@ -12,6 +12,7 @@ app.config.from_object(__name__)
 app.config["DEBUG"] = True
 app.database = "WhatsCookin\'.db"
 
+x = 1
 
 
 #Create the database
@@ -24,6 +25,7 @@ def init_db():
 		with app.open_resource('schema.sql', mode='r') as f:
 			db.cursor().executescript(f.read())
 	db.commit()
+
 
 #Allows flask to communcate with the database
 @app.before_request
@@ -111,5 +113,5 @@ def add_grouping():
 
 
 
-app.run()
+app.run(debug=True, port=33507)
 
