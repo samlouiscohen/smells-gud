@@ -1,2 +1,2 @@
-web: gunicorn flaskmain.py:app
+web: gunicorn flaskMain.py:app
 init: python init_db.py
