@@ -12,8 +12,6 @@ app.config.from_object(__name__)
 app.config["DEBUG"] = True
 app.database = "WhatsCookin\'.db"
 
-x = 1
-
 
 #Create the database
 def connect_db():
@@ -112,6 +110,6 @@ def add_grouping():
 
 
 
-
-app.run(debug=True, port=33507)
+if __name__ == "__main__":
+	app.run(debug=True, port=33507)
 
