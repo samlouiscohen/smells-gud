@@ -14,7 +14,7 @@ app.database = "WhatsCookin\'.db"
 
 
 
-#Create the database
+#Create the database------------------------------------------------------------
 def connect_db():
 	return lite.connect(app.database)
 
@@ -36,7 +36,7 @@ def teardown_request(exception):
 	if db is not None:
 		db.close()
 
-#-------End of data base-----
+#End of data base---------------------------------------------------------------
 
 
 
