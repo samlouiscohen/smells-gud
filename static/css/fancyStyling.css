@@ -19,6 +19,13 @@
 	color:blue;
 }
 
+
+#scroller{
+	
+
+	background-color: red;
+}
+
 #sign_up {
 	width: 100%;
 	color: white;
@@ -199,7 +206,6 @@ form input { width: 100%; }
 .user_in_field{
 	position:absolute;
 	left:80px;
-
 
 }
 

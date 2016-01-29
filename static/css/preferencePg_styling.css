@@ -23,29 +23,41 @@ body,html{
 }
 
 
-
+/*This is the div for the favs block*/
 #favs{
 	/*background: blue;*/
 	/*position:fixed;*/
-	position:absolute;
-	width:20vw;
+	position:fixed;
+	width:30vw;
 	left:10vw;
 	top:10vh;
 	text-align: center;
 }
 
-#fav_title h2{
+#fav_title{
 	position:fixed;
+	left:inherit;
+	width:inherit;
+	background-color: red;
 	font-weight: 300 !important;
 	text-transform: capitalize;
+	background-color: #113eb3;
 
 }
 
 
+#list_food{
+	position: inherit;
+	left:10px
+	top:10px;
+	color:white;
+}
 
 
 
+/*This is the div for the groups block*/
 #groups{
+	background-color: blue;
 	position:absolute;
 	width:20vw;
 	height:100vw;
@@ -56,11 +68,37 @@ body,html{
 
 #group_title h2{
 	position:fixed;
-		font-weight: 300 !important;
+
+	font-weight: 300 !important;
 	text-transform: capitalize;
 }
 
+#scroller{
+	
+	position: fixed;
+	left:10px;
+	width:50%;
+	background-color: red;
+}
 
+#submit_div{
+	color:red;
+	position: fixed;
+	font-weight: 300;
+
+	top:60%;
+	width: 100%;
+	height:5%;
+	background-color: transparent;
+	text-align: center;
+}
+
+#submit_button{
+	position:absolute;
+	
+	width:20%;
+	height:100%;
+}
 
 
 
@@ -74,11 +112,13 @@ width:100px;
 }
 
 
-.option_list{
+.favorites_list{
 	position: relative;
 	color:white;
 	text-align: right;
+
 }
+
 
 
 
