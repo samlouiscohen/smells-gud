@@ -43,12 +43,6 @@ def teardown_request(exception):
 
 
 
-
-
-
-
-
-
 #Route for the website(landing page of website)
 @app.route('/')
 def home():
