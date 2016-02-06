@@ -27,8 +27,6 @@ app.database = "WhatsCookin\'.db"
 
 
 
-
-
 #Create the database
 def connect_db():
 	return lite.connect(app.database)
@@ -46,15 +44,14 @@ def init_db():
 def before_request():
 	g.db = connect_db()
 
+
 @app.teardown_request
 def teardown_request(exception):
 	db = getattr(g, 'db', None)
 	if db is not None:
 		db.close()
 
-#-------End of database-----
-
-
+#-----End of database
 
 sched = BackgroundScheduler()
 
@@ -103,40 +100,71 @@ sched.start()
 #Route for the website(landing page of website)
 @app.route('/')
 def home():
-	if(datetime.now().time()=="15:09:00"):
-		msg = Message("Mail Test",
-			sender = 'smellzgud@gmail.com',
-			recipients = ['ls3223@columbia.edu'])
+
+	print("Start up home page")
 	
-		g.db = connect_db()
-		cur = g.db.execute('select * from entries order by id desc')
-		data = cur.fetchall()
-		for row in data:
-			entries = dict(food=row[1],attributes=row[2])
+	#Get foods from webcrawler to store in database
+	allHalls = getAllFoods()
+	print(allHalls)
 
-		toSend =', '.join("{!s}={!r}".format(key,val) for (key,val) in entries.items())
+	print("dig in")
+	print(allHalls[0][0][1])
+	print("again")
 
-		msg.body = toSend
-		mail.send(msg)
+	numDininghalls = len(allHalls)
+
+	#We open a database connection
+	g.db = connect_db()
+	
+
+
+
+	for aHall in range(numDininghalls):
+
+		for aFood in range(len(allHalls[aHall])):
+
+			# g.db.execute("INSERT INTO entries(food,hall) VALUES(?,?)",[allHalls[aHall][aFood][0],aHall])
+			
+			print("LOKOOKOKOKOK")
+			print(allHalls[aHall][aFood][1])
+
+			#Store attributes as one string to later be broken into components
+			attString = ''
+			for att in allHalls[aHall][aFood][1]:
+
+				attString +=(att+', ')
+
+			#Removed excess comma
+			allAttString = attString[:-2]
+
+
+			print("HEKFSDGSDGSDFGSD")
+			print(allAttString)
+
+			g.db.execute("INSERT INTO entries(food,attributes,hall) VALUES(?,?,?)",[allHalls[aHall][aFood][0],allAttString,aHall])
+
+			# g.db.execute("INSERT INTO entries(food) VALUES(?)",[allHalls[aHall][aFood][0]])
+			g.db.commit()
+
+			# if not(len(allHalls[aHall][aFood][1]) == 0):
+			# 	print("this was not zero!!")
+				#for att in range(len(allHalls[aHall][aFood][1])):
+				# 	#Dont dont attach 'empty' attributes to a food
+				# 	print(allHalls[aHall][aFood][1])
+				# # if (len(allHalls[aHall][aFood][1]) == 0):
+				# # 	print("This was empty!!")
+					#g.db.execute("INSERT INTO entries(attributes) VALUES(?)",[allHalls[aHall][aFood][1][att]])
+					#g.db.commit()
+			# else:
+			# 	g.db.execute("INSERT INTO entries(food,hall) VALUES(?,?)",[allHalls[aHall][aFood][0],aHall])
+			# 	g.db.commit()
+
+	print('Close database!')
+	g.db.close()
+
 	#Returns the html to user
 	return render_template('homePage.html')
 
-	#Get foods from webcrawler and store in database
-	foods = getAllFoods()
-	foodsLen = len(foods)
-
-	#We open a database connection #######**@#$*%*@#this was g.db
-	g.database = connect_db()
-	
-	for x in range(FullLength):
-		
-		for y in range(len(food[x])):
-			if len(food[x][y][1]) == "none" :
-				g.db.execute("INSERT INTO entries(food,attributes) VALUES(?,?)",[food[x][y][0],food[x][y][1]])
-				g.db.commit()
-			else:
-				g.db.execute("INSERT INTO entries(food,attributes) VALUES(?,?)",[food[x][y][0],food[x][y][1]])
-				g.db.commit()
 
 	g.db.close()
 
@@ -147,79 +175,53 @@ def add_user():
 	email = request.form['email']
 
 	#We open a database connection when we add a user(and their info)
-	g.database = connect_db()
-	#Specifiys location for data- into user info column
-	g.database.execute("INSERT INTO users(username,password,email) VALUES(?,?,?)",[username,password,email])
+	print('Reconnect to database')
+	g.db = connect_db()
 
+	print('insert!!!')
+	print('username: '+username)
+	print('password: '+password)
+	print('email: '+email)
+	#Specifiys location for data- into user info column
+	g.db.execute("INSERT INTO users(username,password,email) VALUES(?,?,?)",[username,password,email])
+	g.db.commit()
 	print("The email addreess is:"+email)
 
-	cur = g.database.cursor()
+	cur = g.db.cursor()
 
 	cur = g.db.execute('select * from entries')
-	#Create dictionary using list comprehension
+
+	#Pull foods from data base to show on second page
 	entries = [dict(food=row[1], attributes = row[2]) for row in cur.fetchall()]
 
-
+	g.db.close()
 
 
 
 	#Render the next webpage(step of progress)
 	return render_template('preferences_page.html',entries = entries)
 
-@app.route('/mail')
-def send_Mail():
-	# with mail.connect() as conn:
- #    	for user in users:
- #        	message = '...'
- #        	subject = "hello, %s" % user.name
- #        	msg = Message(recipients=[user.email],
- #            	body=message,
- #                subject=subject)
-
- #        	conn.send(msg)
-
-	msg = Message("Mail Test",
-		sender = 'smellzgud@gmail.com',
-		recipients = ['ls3223@columbia.edu'])
-	
-	g.db = connect_db()
-	cur = g.db.execute('select * from entries order by id desc')
-	data = cur.fetchall()
-	for row in data:
-		entries = dict(food=row[1],attributes=row[2])
-
-	toSend =', '.join("{!s}={!r}".format(key,val) for (key,val) in entries.items())
-
-	msg.body = toSend
-	mail.send(msg)
-	return render_template('mail.html')
 
 @app.route('/add_grouping',methods = ['GET','POST'])
 def add_grouping():
 	pass
 
 
-
-
-
-
-
-if(datetime.now().time()=="14:51:00"):
-	msg = Message("Mail Test",
-		sender = 'smellzgud@gmail.com',
-		recipients = ['slc2206@columbia.edu'])
-	
+@app.route('/get_checkboxes',methods = ['POST'])
+def get_checkboxes():
+	food = request.form['foodName']
+	#group = request.form['group']
 	g.db = connect_db()
-	cur = g.db.execute('select * from entries order by id desc')
-	data = cur.fetchall()
-	for row in data:
-		entries = dict(food=row[1],attributes=row[2])
 
-	toSend =', '.join("{!s}={!r}".format(key,val) for (key,val) in entries.items())
-
-	msg.body = toSend
-	mail.send(msg)
+	g.db.execute("INSERT INTO users(favorites) VALUES(?)",[food])
+	# g.db.execute("INSERT INTO users(favorites,groups) VALUES(?,?)",[food,group])
 
 
+	g.db.close()
+
+
+#Now you have to run with this command: gunicorn flaskMain:app
+#Set the host to be 0.0.0.0
+# if __name__ == "_main_":
 app.run()
 
