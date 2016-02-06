@@ -103,21 +103,7 @@ sched.start()
 #Route for the website(landing page of website)
 @app.route('/')
 def home():
-	if(datetime.now().time()=="15:09:00"):
-		msg = Message("Mail Test",
-			sender = 'smellzgud@gmail.com',
-			recipients = ['ls3223@columbia.edu'])
 	
-		g.db = connect_db()
-		cur = g.db.execute('select * from entries order by id desc')
-		data = cur.fetchall()
-		for row in data:
-			entries = dict(food=row[1],attributes=row[2])
-
-		toSend =', '.join("{!s}={!r}".format(key,val) for (key,val) in entries.items())
-
-		msg.body = toSend
-		mail.send(msg)
 	#Returns the html to user
 	return render_template('homePage.html')
 
