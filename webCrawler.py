@@ -62,22 +62,14 @@ def getHallInfo(url):
 def getAllFoods():
 	'''Main is calling getTotalInfo for each dininghall'''
 
-	allHallsComplete = []
+	allHallsComplete = dict()
 
 	for aHall in range(3):
 		url = 'http://dining.columbia.edu/?quicktabs_homepage_menus_quicktabs='+str(aHall)+'#quicktabs-homepage_menus_quicktabs'
 		
-		#Call function for all of a dininghalls food
-		aHallFoods = getHallInfo(url)
+		#Store each dining halls foods in the encompassing dictionary
+		allHallsComplete[aHall] = getHallInfo(url)
 
-		#Encompassing list with all dining halls and all their foods
-		allHallsComplete.append(aHallFoods)
-
-
-		print(allHallsComplete)
+	print(allHallsComplete)
 	return allHallsComplete
-
-
-
-
 
