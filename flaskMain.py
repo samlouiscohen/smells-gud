@@ -95,7 +95,7 @@ def home():
 			print("HEKFSDGSDGSDFGSD")
 			print(allAttString)
 
-			g.db.execute("INSERT INTO entries(food,attributes) VALUES(?,?)",[allHalls[aHall][aFood][0],allAttString])
+			g.db.execute("INSERT INTO entries(food,attributes,hall) VALUES(?,?,?)",[allHalls[aHall][aFood][0],allAttString,aHall])
 
 			# g.db.execute("INSERT INTO entries(food) VALUES(?)",[allHalls[aHall][aFood][0]])
 			g.db.commit()
