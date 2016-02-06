@@ -1,0 +1,35 @@
+Interfaces are promises to compiler
+want the user to 
+want negatuve resukt is a<b
+positive if a>b
+zero if z=b
+
+
+Make the user promise me they will implement this method for me
+
+You have to fill out all the methods exactly for any object that implemetns a interface
+
+Know:
+
+
+N
+NlogN
+N^2
+2^n
+logN
+
+
+2.1 (in terms of big o)
+
+2.6
+x = n^2
+
+2, 4, 16, 256, 65536
+1, 2,  3,  4,    5
+
+x = 2n+ 1+ n^2 
+
+X = (n-1) + (n-1)^2 +2^n
+
+Big O dont add constants, exponents 
+
