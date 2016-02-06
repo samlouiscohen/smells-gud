@@ -54,9 +54,10 @@ sched = BackgroundScheduler()
 dbSched = BackgroundScheduler()
 
 #repopulates the database with any unseen foods every 24 hours
-@dbSched.scheduled_job('interval',hours=24)
+@sched.scheduled_job('interval',seconds=5)
 def populate_Db():
 	with app.app_context():
+		print("hi")
 		allHalls = getAllFoods()
 		numDininghalls = len(allHalls)
 
