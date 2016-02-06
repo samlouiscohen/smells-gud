@@ -55,22 +55,63 @@ def teardown_request(exception):
 def home():
 	print("Start up home page")
 	
-	#Get foods from webcrawler and store in database
-	foods = getAllFoods()
-	foodsLen = len(foods)
+	#Get foods from webcrawler to store in database
+	allHalls = getAllFoods()
+	print(allHalls)
+
+	print("dig in")
+	print(allHalls[0][0][1])
+	print("again")
+	#print(allHalls[0][0][1][0])
+
+	#print(allFoods[0][0][0])
+	numDininghalls = len(allHalls)
 
 	#We open a database connection
 	g.db = connect_db()
 	
-	for x in range(foodsLen):
-		
-		for y in range(len(foods[x])):
-			if len(foods[x][y][1]) == "none" :
-				g.db.execute("INSERT INTO entries(food,attributes) VALUES(?,?)",[foods[x][y][0],foods[x][y][1]])
-				g.db.commit()
-			else:
-				g.db.execute("INSERT INTO entries(food,attributes) VALUES(?,?)",[foods[x][y][0],foods[x][y][1]])
-				g.db.commit()
+
+
+
+	for aHall in range(numDininghalls):
+
+		for aFood in range(len(allHalls[aHall])):
+
+			# g.db.execute("INSERT INTO entries(food,hall) VALUES(?,?)",[allHalls[aHall][aFood][0],aHall])
+			
+			print("LOKOOKOKOKOK")
+			print(allHalls[aHall][aFood][1])
+
+			#Store attributes as one string to later be broken into components
+			attString = ''
+			for att in allHalls[aHall][aFood][1]:
+
+				attString +=(att+', ')
+
+			#Removed excess comma
+			allAttString = attString[:-2]
+
+
+			print("HEKFSDGSDGSDFGSD")
+			print(allAttString)
+
+			g.db.execute("INSERT INTO entries(food,attributes) VALUES(?,?)",[allHalls[aHall][aFood][0],allAttString])
+
+			# g.db.execute("INSERT INTO entries(food) VALUES(?)",[allHalls[aHall][aFood][0]])
+			g.db.commit()
+
+			# if not(len(allHalls[aHall][aFood][1]) == 0):
+			# 	print("this was not zero!!")
+				#for att in range(len(allHalls[aHall][aFood][1])):
+				# 	#Dont dont attach 'empty' attributes to a food
+				# 	print(allHalls[aHall][aFood][1])
+				# # if (len(allHalls[aHall][aFood][1]) == 0):
+				# # 	print("This was empty!!")
+					#g.db.execute("INSERT INTO entries(attributes) VALUES(?)",[allHalls[aHall][aFood][1][att]])
+					#g.db.commit()
+			# else:
+			# 	g.db.execute("INSERT INTO entries(food,hall) VALUES(?,?)",[allHalls[aHall][aFood][0],aHall])
+			# 	g.db.commit()
 
 	print('Close database!')
 	g.db.close()
