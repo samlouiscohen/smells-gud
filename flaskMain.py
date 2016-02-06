@@ -155,7 +155,7 @@ def home():
 	#Returns the html to user
 	return render_template('homePage.html')
 
-
+	
 
 
 @app.route('/add_user', methods = ['POST'])
