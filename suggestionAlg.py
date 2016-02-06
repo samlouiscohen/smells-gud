@@ -1,7 +1,7 @@
 
 
 
-def recommend(userFavorites,userGroups):
+def recommend(allList,userFavorites,userGroups):
 
 
 	ferrisPoints = 0
@@ -13,23 +13,22 @@ def recommend(userFavorites,userGroups):
 	jjPoints = len(userFavorites[2])
 
 
-	#
+
+
+	suggestion
+
+
+	return suggestion
 
 
 
 
+# class user:
+
+# 	def __init__(self,username,email,password):
+# 		self.username = username
+# 		self.email = email
+# 		self.password 
 
 
-
-
-
-
-class user:
-
-	def __init__(self,username,email,password):
-		self.username = username
-		self.email = email
-		self.password 
-
-
-	preferences = []
+# 	preferences = []
