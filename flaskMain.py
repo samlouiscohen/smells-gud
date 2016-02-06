@@ -109,7 +109,7 @@ def populate_Db():
 	print('Close database!')
 	g.db.close()
 #task called by heroku scheduler add-on
-@sched.scheduled_job('interval',seconds=1)
+@sched.scheduled_job('interval',hours=24)
 def send_Mail():
 	with app.app_context():
 	# with mail.connect() as conn:
