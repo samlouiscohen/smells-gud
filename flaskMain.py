@@ -51,13 +51,22 @@ def teardown_request(exception):
 
 
 sched = BackgroundScheduler()
-dbSched = BackgroundScheduler()
+
+@sched.scheduled_job('interval',hours=24)
+def refresh_Db():
+	with app.app_context:
+		g.db = connect_db()
+		g.db.execute("delete * from entries")
+		g.db.execute("TRUNCATE table fom entries")
+		g.db.commit()
+		g.db.close()
+
 
 #repopulates the database with any unseen foods every 24 hours
-@sched.scheduled_job('interval',seconds=5)
+@sched.scheduled_job('interval',hours=24)
 def populate_Db():
 	with app.app_context():
-		print("hi")
+		
 		allHalls = getAllFoods()
 		numDininghalls = len(allHalls)
 
