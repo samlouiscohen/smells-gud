@@ -17,6 +17,5 @@ pytz==2015.7
 requests==2.9.1
 six==1.10.0
 sql==0.4.0
-tornado==4.3
 tzlocal==1.2
 Werkzeug==0.11.3

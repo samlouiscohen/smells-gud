@@ -4,12 +4,14 @@ import sqlite3 as lite
 from webCrawler import getAllFoods
 from contextlib import closing
 from flask_mail import Mail, Message
-from datetime import datetime
 
 
 app = Flask(__name__)
 
 app.config.from_object(__name__)
+app.config["DEBUG"] = True
+app.database = "WhatsCookin\'.db"
+
 app.config.update(
 DEBUG = True,
 MAIL_SERVER = 'smtp.gmail.com',
@@ -18,16 +20,11 @@ MAIL_USE_SSL=True,
 MAIL_USERNAME = 'smellzgud@gmail.com',
 MAIL_PASSWORD = 'Columbia'
 )
-
 #Create mail object
 mail = Mail(app)
 app.config.from_object(__name__)
 
-app.database = "WhatsCookin\'.db"
-
-
-
-#Create the database
+#Create the database------------------------------------------------------------
 def connect_db():
 	return lite.connect(app.database)
 
@@ -37,7 +34,6 @@ def init_db():
 		with app.open_resource('schema.sql', mode='r') as f:
 			db.cursor().executescript(f.read())
 	db.commit()
-
 
 #Allows flask to communcate with the database
 @app.before_request
@@ -51,12 +47,69 @@ def teardown_request(exception):
 	if db is not None:
 		db.close()
 
-#-----End of database
+#End of data base---------------------------------------------------------------
+
 
 sched = BackgroundScheduler()
+dbSched = BackgroundScheduler()
 
+#repopulates the database with any unseen foods every 24 hours
+@dbSched.scheduled_job('interval',hours=24)
+def populate_Db():
+	with app.app_context()
+		allHalls = getAllFoods()
+		numDininghalls = len(allHalls)
+
+		#We open a database connection
+		g.db = connect_db()
+	
+
+
+
+		for aHall in range(numDininghalls):
+
+			for aFood in range(len(allHalls[aHall])):
+
+				# g.db.execute("INSERT INTO entries(food,hall) VALUES(?,?)",[allHalls[aHall][aFood][0],aHall])
+			
+				print("LOKOOKOKOKOK")
+				print(allHalls[aHall][aFood][1])
+
+				#Store attributes as one string to later be broken into components
+				attString = ''
+				for att in allHalls[aHall][aFood][1]:
+
+					attString +=(att+', ')
+
+				#Removed excess comma
+				allAttString = attString[:-2]
+
+
+				print("HEKFSDGSDGSDFGSD")
+				print(allAttString)
+
+				g.db.execute("INSERT INTO entries(food,attributes,hall) VALUES(?,?,?)",[allHalls[aHall][aFood][0],allAttString,aHall])
+
+			# g.db.execute("INSERT INTO entries(food) VALUES(?)",[allHalls[aHall][aFood][0]])
+				g.db.commit()
+
+			# if not(len(allHalls[aHall][aFood][1]) == 0):
+			# 	print("this was not zero!!")
+				#for att in range(len(allHalls[aHall][aFood][1])):
+				# 	#Dont dont attach 'empty' attributes to a food
+				# 	print(allHalls[aHall][aFood][1])
+				# # if (len(allHalls[aHall][aFood][1]) == 0):
+				# # 	print("This was empty!!")
+					#g.db.execute("INSERT INTO entries(attributes) VALUES(?)",[allHalls[aHall][aFood][1][att]])
+					#g.db.commit()
+			# else:
+			# 	g.db.execute("INSERT INTO entries(food,hall) VALUES(?,?)",[allHalls[aHall][aFood][0],aHall])
+			# 	g.db.commit()
+
+	print('Close database!')
+	g.db.close()
 #task called by heroku scheduler add-on
-@sched.scheduled_job('interval',seconds=10)
+@sched.scheduled_job('interval',seconds=1)0
 def send_Mail():
 	with app.app_context():
 	# with mail.connect() as conn:
@@ -91,82 +144,18 @@ def send_Mail():
 			message.body = toSend
 			mail.send(message)
 		
-sched.add_job(send_Mail,"interval",minutes=1)
+sched.add_job(send_Mail,"interval",hours=24)
 sched.start()
-
-
 
 
 #Route for the website(landing page of website)
 @app.route('/')
 def home():
-
-	print("Start up home page")
-	
-	#Get foods from webcrawler to store in database
-	allHalls = getAllFoods()
-	print(allHalls)
-
-	print("dig in")
-	print(allHalls[0][0][1])
-	print("again")
-
-	numDininghalls = len(allHalls)
-
-	#We open a database connection
-	g.db = connect_db()
-	
-
-
-
-	for aHall in range(numDininghalls):
-
-		for aFood in range(len(allHalls[aHall])):
-
-			# g.db.execute("INSERT INTO entries(food,hall) VALUES(?,?)",[allHalls[aHall][aFood][0],aHall])
-			
-			print("LOKOOKOKOKOK")
-			print(allHalls[aHall][aFood][1])
-
-			#Store attributes as one string to later be broken into components
-			attString = ''
-			for att in allHalls[aHall][aFood][1]:
-
-				attString +=(att+', ')
-
-			#Removed excess comma
-			allAttString = attString[:-2]
-
-
-			print("HEKFSDGSDGSDFGSD")
-			print(allAttString)
-
-			g.db.execute("INSERT INTO entries(food,attributes,hall) VALUES(?,?,?)",[allHalls[aHall][aFood][0],allAttString,aHall])
-
-			# g.db.execute("INSERT INTO entries(food) VALUES(?)",[allHalls[aHall][aFood][0]])
-			g.db.commit()
-
-			# if not(len(allHalls[aHall][aFood][1]) == 0):
-			# 	print("this was not zero!!")
-				#for att in range(len(allHalls[aHall][aFood][1])):
-				# 	#Dont dont attach 'empty' attributes to a food
-				# 	print(allHalls[aHall][aFood][1])
-				# # if (len(allHalls[aHall][aFood][1]) == 0):
-				# # 	print("This was empty!!")
-					#g.db.execute("INSERT INTO entries(attributes) VALUES(?)",[allHalls[aHall][aFood][1][att]])
-					#g.db.commit()
-			# else:
-			# 	g.db.execute("INSERT INTO entries(food,hall) VALUES(?,?)",[allHalls[aHall][aFood][0],aHall])
-			# 	g.db.commit()
-
-	print('Close database!')
-	g.db.close()
-
 	#Returns the html to user
 	return render_template('homePage.html')
 
 
-	g.db.close()
+
 
 @app.route('/add_user', methods = ['POST'])
 def add_user():
@@ -220,8 +209,10 @@ def get_checkboxes():
 	g.db.close()
 
 
+
+
+
 #Now you have to run with this command: gunicorn flaskMain:app
 #Set the host to be 0.0.0.0
-# if __name__ == "_main_":
-app.run()
-
+if __name__ == '__main__':
+    app.run(debug=True)
