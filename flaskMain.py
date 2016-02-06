@@ -24,15 +24,7 @@ MAIL_PASSWORD = 'Columbia'
 mail = Mail(app)
 app.config.from_object(__name__)
 
-<<<<<<< HEAD
 #Create the database------------------------------------------------------------
-=======
-app.database = "WhatsCookin\'.db"
-
-
-
-#Create the database
->>>>>>> fab9dcd633e688f396da238939c728cb28cff225
 def connect_db():
 	return lite.connect(app.database)
 
@@ -55,12 +47,8 @@ def teardown_request(exception):
 	if db is not None:
 		db.close()
 
-<<<<<<< HEAD
 #End of data base---------------------------------------------------------------
 
-=======
-#-----End of database
->>>>>>> fab9dcd633e688f396da238939c728cb28cff225
 
 sched = BackgroundScheduler()
 dbSched = BackgroundScheduler()
@@ -163,78 +151,10 @@ sched.start()
 #Route for the website(landing page of website)
 @app.route('/')
 def home():
-<<<<<<< HEAD
 	#Returns the html to user
 	return render_template('homePage.html')
 
 
-=======
-
-	print("Start up home page")
-	
-	#Get foods from webcrawler to store in database
-	allHalls = getAllFoods()
-	print(allHalls)
-
-	print("dig in")
-	print(allHalls[0][0][1])
-	print("again")
-
-	numDininghalls = len(allHalls)
-
-	#We open a database connection
-	g.db = connect_db()
-	
-
-
-
-	for aHall in range(numDininghalls):
-
-		for aFood in range(len(allHalls[aHall])):
-
-			# g.db.execute("INSERT INTO entries(food,hall) VALUES(?,?)",[allHalls[aHall][aFood][0],aHall])
-			
-			print("LOKOOKOKOKOK")
-			print(allHalls[aHall][aFood][1])
-
-			#Store attributes as one string to later be broken into components
-			attString = ''
-			for att in allHalls[aHall][aFood][1]:
-
-				attString +=(att+', ')
-
-			#Removed excess comma
-			allAttString = attString[:-2]
-
-
-			print("HEKFSDGSDGSDFGSD")
-			print(allAttString)
-
-			g.db.execute("INSERT INTO entries(food,attributes,hall) VALUES(?,?,?)",[allHalls[aHall][aFood][0],allAttString,aHall])
-
-			# g.db.execute("INSERT INTO entries(food) VALUES(?)",[allHalls[aHall][aFood][0]])
-			g.db.commit()
-
-			# if not(len(allHalls[aHall][aFood][1]) == 0):
-			# 	print("this was not zero!!")
-				#for att in range(len(allHalls[aHall][aFood][1])):
-				# 	#Dont dont attach 'empty' attributes to a food
-				# 	print(allHalls[aHall][aFood][1])
-				# # if (len(allHalls[aHall][aFood][1]) == 0):
-				# # 	print("This was empty!!")
-					#g.db.execute("INSERT INTO entries(attributes) VALUES(?)",[allHalls[aHall][aFood][1][att]])
-					#g.db.commit()
-			# else:
-			# 	g.db.execute("INSERT INTO entries(food,hall) VALUES(?,?)",[allHalls[aHall][aFood][0],aHall])
-			# 	g.db.commit()
-
-	print('Close database!')
-	g.db.close()
-
-	#Returns the html to user
-	return render_template('homePage.html')
-
->>>>>>> fab9dcd633e688f396da238939c728cb28cff225
 
 
 @app.route('/add_user', methods = ['POST'])
@@ -287,19 +207,10 @@ def get_checkboxes():
 
 
 	g.db.close()
-<<<<<<< HEAD
 
 
 
 
-=======
-
-
-#Now you have to run with this command: gunicorn flaskMain:app
-#Set the host to be 0.0.0.0
-# if __name__ == "_main_":
-app.run()
->>>>>>> fab9dcd633e688f396da238939c728cb28cff225
 
 #Now you have to run with this command: gunicorn flaskMain:app
 #Set the host to be 0.0.0.0
