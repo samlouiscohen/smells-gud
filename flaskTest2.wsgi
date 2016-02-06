@@ -1,1 +1,0 @@
-from flaskTest2 import app as application
