@@ -56,7 +56,7 @@ dbSched = BackgroundScheduler()
 #repopulates the database with any unseen foods every 24 hours
 @dbSched.scheduled_job('interval',hours=24)
 def populate_Db():
-	with app.app_context()
+	with app.app_context():
 		allHalls = getAllFoods()
 		numDininghalls = len(allHalls)
 
@@ -109,7 +109,7 @@ def populate_Db():
 	print('Close database!')
 	g.db.close()
 #task called by heroku scheduler add-on
-@sched.scheduled_job('interval',seconds=1)0
+@sched.scheduled_job('interval',seconds=1)
 def send_Mail():
 	with app.app_context():
 	# with mail.connect() as conn:
