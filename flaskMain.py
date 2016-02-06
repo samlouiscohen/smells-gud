@@ -154,16 +154,6 @@ def add_user():
 
 @app.route('/mail')
 def send_Mail():
-	# with mail.connect() as conn:
- #    	for user in users:
- #        	message = '...'
- #        	subject = "hello, %s" % user.name
- #        	msg = Message(recipients=[user.email],
- #            	body=message,
- #                subject=subject)
-
- #        	conn.send(msg)
-
 	msg = Message("Mail Test",
 		sender = 'smellzgud@gmail.com',
 		recipients = ['ls3223@columbia.edu'])
@@ -183,28 +173,6 @@ def send_Mail():
 @app.route('/add_grouping',methods = ['GET','POST'])
 def add_grouping():
 	pass
-
-
-
-
-
-
-
-if(datetime.now().time()=="14:51:00"):
-	msg = Message("Mail Test",
-		sender = 'smellzgud@gmail.com',
-		recipients = ['slc2206@columbia.edu'])
-	
-	g.db = connect_db()
-	cur = g.db.execute('select * from entries order by id desc')
-	data = cur.fetchall()
-	for row in data:
-		entries = dict(food=row[1],attributes=row[2])
-
-	toSend =', '.join("{!s}={!r}".format(key,val) for (key,val) in entries.items())
-
-	msg.body = toSend
-	mail.send(msg)
 
 
 app.run()
