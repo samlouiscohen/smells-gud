@@ -4,7 +4,6 @@ import sqlite3 as lite
 from webCrawler import getAllFoods
 from contextlib import closing
 from flask_mail import Mail, Message
-from datetime import datetime
 
 
 app = Flask(__name__)
@@ -24,9 +23,6 @@ mail = Mail(app)
 app.config.from_object(__name__)
 
 app.database = "WhatsCookin\'.db"
-
-
-
 
 
 #Create the database
