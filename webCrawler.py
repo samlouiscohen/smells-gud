@@ -37,16 +37,15 @@ def getHallInfo(url):
 		
 			#List comprehension to store all atttributes in list
 			attributes = [prop.text for prop in attGenSpec]
-			stringOfAttributes=''
-			if len(attributes)==0:
-				attributes = "None"
-			else:
-				for attribute in range(len(attributes)):
-					stringOfAttributes+=str(attributes[attribute]) +' '
+			print("attributes")
+			print(attributes)
+			# if len(attributes)==0:
+			# 	attributes = "None"
+			# else:
+			# 	for attribute in range(len(attributes)):
+			# 		stringOfAttributes+=str(attributes[attribute]) +' '
 
-				attributes = stringOfAttributes[:-1]
-
-					
+			# 	attributes = stringOfAttributes[:-1]
 
 			#[ [food,[att1,att2,att3]],[food2,[att1,att2,att3]] ]
 
@@ -62,22 +61,13 @@ def getHallInfo(url):
 def getAllFoods():
 	'''Main is calling getTotalInfo for each dininghall'''
 
-	allHallsComplete = []
+	allHallsComplete = dict()
 
 	for aHall in range(3):
 		url = 'http://dining.columbia.edu/?quicktabs_homepage_menus_quicktabs='+str(aHall)+'#quicktabs-homepage_menus_quicktabs'
 		
-		#Call function for all of a dininghalls food
-		aHallFoods = getHallInfo(url)
-
-		#Encompassing list with all dining halls and all their foods
-		allHallsComplete.append(aHallFoods)
-
-
-		print(allHallsComplete)
+		#Store each dining halls foods in the encompassing dictionary
+		allHallsComplete[aHall] = getHallInfo(url)
+		#print(allHallsComplete)
 	return allHallsComplete
-
-
-
-
 

@@ -9,13 +9,11 @@
 		<meta charset="utf-8">
 		<title>Smells Gud</title>
 
-
 		<link rel="icon" type="image/jpg" href="../static/img/ColumbiaDining.jpg" sizes="32x32">
 
 	</head>
 
 	<body>
-
 		<!--Favorites sub-section-->
 
 		<div id="favs" style="overflow-y: scroll; height:400px;">
@@ -27,20 +25,29 @@
 <!--			<li class="favorites_list">-->
 
 				<!--Using a form to collect all clicked checkboxes-->
-				<form action="get_checkboxes" method="get">
-					
+				<!--<form action="/get_checkboxes" method="post">-->
+
+				<div class="data">
 					<!--HTML loop through food entries-->
 					{% for entry in entries %}
+
 						<div id="list_food">
-							<strong >Food:</strong> {{ entry.food }} <input type="checkbox" value ="nonsense"/><br>
+							<!--Specify class to access with js-->
+							<strong >Food:</strong> {{ entry.food }} <input class="foodCheckBox" type="checkbox" name = "foodName" value = "{{entry.food}}"/><br>
 						</div>
 						
 						<div id="list_attribs">
 							<strong>attributes:</strong> {{ entry.attributes }}<br>
 							<nl>
 						</div>
-					{% endfor %}  
-			<!--</li>  -->
+					{% endfor %}
+				</div>
+
+<!-- 					<div id="saveButton">
+						<button id="saveButton">Save!</button>
+					</div> -->
+					
+				<!--</form>-->
 
 		</div>
 
@@ -52,8 +59,6 @@
 		<div id="pref_title">
 			<h1>PREFERENCES</h1>
 		</div>
-
-
 
 
 		<div id="groups">
@@ -94,6 +99,8 @@
 		<div id="submit_div">
 			<button id="submit_button" type="button" onclick="alert('hello world!')">click me</button>
 		</div>
+
+
 <!-- 		<div id="save_preferences">
 			<input type="button" name="save_prefs" value="Save yo preferences"/>
 		</div> -->
@@ -109,9 +116,12 @@
 
 
 		<!--Link jquery-->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-		<!--<script src="/js/index.js"></script>-->
-	</form>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script type="text/javascript" src="../static/js/accessValues.js"></script>
+
+
+
+
 		<!-- <a href="https://github.com/samlouiscohen"><center>Check out my github!</center></a> -->
 
 	</body>
