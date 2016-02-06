@@ -52,46 +52,46 @@ def teardown_request(exception):
 
 
 
-sched = BackgroundScheduler()
+# sched = BackgroundScheduler()
 
-#task called by heroku scheduler add-on
-@sched.scheduled_job('interval',seconds=10)
-def send_Mail():
-	with app.app_context():
-	# with mail.connect() as conn:
- #    	for user in users:
- #        	message = '...'
- #        	subject = "hello, %s" % user.name
- #        	msg = Message(recipients=[user.email],
- #            	body=message,
- #                subject=subject)
+# #task called by heroku scheduler add-on
+# @sched.scheduled_job('interval',seconds=10)
+# def send_Mail():
+# 	with app.app_context():
+# 	# with mail.connect() as conn:
+#  #    	for user in users:
+#  #        	message = '...'
+#  #        	subject = "hello, %s" % user.name
+#  #        	msg = Message(recipients=[user.email],
+#  #            	body=message,
+#  #                subject=subject)
 
- #        	conn.send(msg)
+#  #        	conn.send(msg)
 
-		msg = Message("Mail Test",
-			sender = 'smellzgud@gmail.com',
-			recipients = ['ls3223@columbia.edu'])
+# 		msg = Message("Mail Test",
+# 			sender = 'smellzgud@gmail.com',
+# 			recipients = ['ls3223@columbia.edu'])
 	
-		g.db = connect_db()
-		cur = g.db.execute('select * from entries order by id desc')
-		data = cur.fetchall()
-		for row in data:
-			entries = dict(food=row[1],attributes=row[2])
-		cur.close()
-		toSend =', '.join("{!s}={!r}".format(key,val) for (key,val) in entries.items())
+# 		g.db = connect_db()
+# 		cur = g.db.execute('select * from entries order by id desc')
+# 		data = cur.fetchall()
+# 		for row in data:
+# 			entries = dict(food=row[1],attributes=row[2])
+# 		cur.close()
+# 		toSend =', '.join("{!s}={!r}".format(key,val) for (key,val) in entries.items())
 		
-		cur1 = g.db.execute('select email from users')
-		data1 = cur1.fetchall()
+# 		cur1 = g.db.execute('select email from users')
+# 		data1 = cur1.fetchall()
 		
-		for row in data1:
-			print(row[0])
-			message = Message(sender = 'smellzgud@gmail.com',
-				recipients=[row[0]],body=toSend)
-			message.body = toSend
-			mail.send(message)
+# 		for row in data1:
+# 			print(row[0])
+# 			message = Message(sender = 'smellzgud@gmail.com',
+# 				recipients=[row[0]],body=toSend)
+# 			message.body = toSend
+# 			mail.send(message)
 		
-sched.add_job(send_Mail,"interval",minutes=1)
-sched.start()
+# sched.add_job(send_Mail,"interval",minutes=1)
+# sched.start()
 
 
 
@@ -171,5 +171,5 @@ def add_grouping():
 	pass
 
 
-app.run(host='0.0.0.0')
+app.run()
 
