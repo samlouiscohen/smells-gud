@@ -1,16 +1,32 @@
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
+from apscheduler.schedulers.background import BackgroundScheduler
 import sqlite3 as lite
 from webCrawler import getAllFoods
 from contextlib import closing
 from flask_mail import Mail, Message
-
+from datetime import datetime
 
 
 app = Flask(__name__)
 
 app.config.from_object(__name__)
-app.config["DEBUG"] = True
+app.config.update(
+DEBUG = True,
+MAIL_SERVER = 'smtp.gmail.com',
+MAIL_PORT=465,
+MAIL_USE_SSL=True,
+MAIL_USERNAME = 'smellzgud@gmail.com',
+MAIL_PASSWORD = 'Columbia'
+)
+
+#Create mail object
+mail = Mail(app)
+app.config.from_object(__name__)
+
 app.database = "WhatsCookin\'.db"
+
+
+
 
 
 #Create the database
@@ -36,9 +52,50 @@ def teardown_request(exception):
 	if db is not None:
 		db.close()
 
-#-------End of data base-----
+#-------End of database-----
 
 
+
+sched = BackgroundScheduler()
+
+#task called by heroku scheduler add-on
+@sched.scheduled_job('interval',seconds=10)
+def send_Mail():
+	with app.app_context():
+	# with mail.connect() as conn:
+ #    	for user in users:
+ #        	message = '...'
+ #        	subject = "hello, %s" % user.name
+ #        	msg = Message(recipients=[user.email],
+ #            	body=message,
+ #                subject=subject)
+
+ #        	conn.send(msg)
+
+		msg = Message("Mail Test",
+			sender = 'smellzgud@gmail.com',
+			recipients = ['ls3223@columbia.edu'])
+	
+		g.db = connect_db()
+		cur = g.db.execute('select * from entries order by id desc')
+		data = cur.fetchall()
+		for row in data:
+			entries = dict(food=row[1],attributes=row[2])
+		cur.close()
+		toSend =', '.join("{!s}={!r}".format(key,val) for (key,val) in entries.items())
+		
+		cur1 = g.db.execute('select email from users')
+		data1 = cur1.fetchall()
+		
+		for row in data1:
+			print(row[0])
+			message = Message(sender = 'smellzgud@gmail.com',
+				recipients=[row[0]],body=toSend)
+			message.body = toSend
+			mail.send(message)
+		
+sched.add_job(send_Mail,"interval",minutes=1)
+sched.start()
 
 
 
@@ -46,7 +103,21 @@ def teardown_request(exception):
 #Route for the website(landing page of website)
 @app.route('/')
 def home():
-	print('why')
+	if(datetime.now().time()=="15:09:00"):
+		msg = Message("Mail Test",
+			sender = 'smellzgud@gmail.com',
+			recipients = ['ls3223@columbia.edu'])
+	
+		g.db = connect_db()
+		cur = g.db.execute('select * from entries order by id desc')
+		data = cur.fetchall()
+		for row in data:
+			entries = dict(food=row[1],attributes=row[2])
+
+		toSend =', '.join("{!s}={!r}".format(key,val) for (key,val) in entries.items())
+
+		msg.body = toSend
+		mail.send(msg)
 	#Returns the html to user
 	return render_template('homePage.html')
 
@@ -67,7 +138,7 @@ def home():
 				g.db.execute("INSERT INTO entries(food,attributes) VALUES(?,?)",[food[x][y][0],food[x][y][1]])
 				g.db.commit()
 
-
+	g.db.close()
 
 @app.route('/add_user', methods = ['POST'])
 def add_user():
@@ -95,7 +166,33 @@ def add_user():
 	#Render the next webpage(step of progress)
 	return render_template('preferences_page.html',entries = entries)
 
+@app.route('/mail')
+def send_Mail():
+	# with mail.connect() as conn:
+ #    	for user in users:
+ #        	message = '...'
+ #        	subject = "hello, %s" % user.name
+ #        	msg = Message(recipients=[user.email],
+ #            	body=message,
+ #                subject=subject)
 
+ #        	conn.send(msg)
+
+	msg = Message("Mail Test",
+		sender = 'smellzgud@gmail.com',
+		recipients = ['ls3223@columbia.edu'])
+	
+	g.db = connect_db()
+	cur = g.db.execute('select * from entries order by id desc')
+	data = cur.fetchall()
+	for row in data:
+		entries = dict(food=row[1],attributes=row[2])
+
+	toSend =', '.join("{!s}={!r}".format(key,val) for (key,val) in entries.items())
+
+	msg.body = toSend
+	mail.send(msg)
+	return render_template('mail.html')
 
 @app.route('/add_grouping',methods = ['GET','POST'])
 def add_grouping():
@@ -107,9 +204,22 @@ def add_grouping():
 
 
 
+if(datetime.now().time()=="14:51:00"):
+	msg = Message("Mail Test",
+		sender = 'smellzgud@gmail.com',
+		recipients = ['slc2206@columbia.edu'])
+	
+	g.db = connect_db()
+	cur = g.db.execute('select * from entries order by id desc')
+	data = cur.fetchall()
+	for row in data:
+		entries = dict(food=row[1],attributes=row[2])
+
+	toSend =', '.join("{!s}={!r}".format(key,val) for (key,val) in entries.items())
+
+	msg.body = toSend
+	mail.send(msg)
 
 
-
-if __name__ == "__main__":
-	app.run(host = "0.0.0.0")
+app.run()
 

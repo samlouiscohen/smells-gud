@@ -1,3 +1,4 @@
+APScheduler==3.0.5
 BareNecessities==0.2.8
 beautifulsoup4==4.4.1
 blinker==1.4
@@ -12,8 +13,10 @@ lxml==3.5.0
 Mail==2.1.0
 MarkupSafe==0.23
 ordereddict==1.1
+pytz==2015.7
 requests==2.9.1
 six==1.10.0
 sql==0.4.0
 tornado==4.3
+tzlocal==1.2
 Werkzeug==0.11.3
