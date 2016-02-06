@@ -170,6 +170,6 @@ def send_Mail():
 def add_grouping():
 	pass
 
-
-app.run()
+if __name__ == '__main__':
+    fapp.run(debug=True)
 
