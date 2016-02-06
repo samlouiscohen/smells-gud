@@ -171,5 +171,5 @@ def add_grouping():
 	pass
 
 
-app.run()
+app.run(host='0.0.0.0')
 
